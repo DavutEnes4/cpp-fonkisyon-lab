@@ -71,20 +71,38 @@ export class RealCppCompiler {
   // Backend bağlantı hatası durumunda simülasyon
   private async fallbackSimulation(code: string): Promise<CodeExecutionResult> {
     const startTime = Date.now();
-    const output = await this.simulateCodeExecution(code);
-    const executionTime = Date.now() - startTime;
+    
+    try {
+      const output = await this.simulateCodeExecution(code);
+      const executionTime = Date.now() - startTime;
 
-    return {
-      output,
-      errors: [],
-      executionTime,
-      success: true
-    };
+      return {
+        output,
+        errors: [],
+        executionTime,
+        success: true
+      };
+    } catch (error) {
+      const executionTime = Date.now() - startTime;
+      
+      return {
+        output: '',
+        errors: [error instanceof Error ? error.message : String(error)],
+        executionTime,
+        success: false
+      };
+    }
   }
 
   // Simülasyon fonksiyonları (backend bağlantı hatası durumunda)
   private async simulateCodeExecution(code: string): Promise<string> {
     const output: string[] = [];
+
+    // cin, scanf gibi kullanıcı girişi kontrolü
+    if (code.includes('cin') || code.includes('scanf') || code.includes('getline') || code.includes('getchar')) {
+      // Kullanıcı girişi bekleyen kod tespit edildi
+      throw new Error('⏰ Zaman aşımı! Program 5 saniyeden uzun sürdü ve iptal edildi. Bu genellikle cin, scanf gibi kullanıcı girişi bekleyen kodlardan kaynaklanır.');
+    }
 
     // motorTest fonksiyonu için özel simülasyon
     if (code.includes('motorTest')) {
@@ -185,6 +203,17 @@ export class RealCppCompiler {
     for (const testCase of testCases) {
       try {
         const result = await this.compileAndRun(code);
+        
+        // Timeout kontrolü
+        if (!result.success && result.errors.some(error => error.includes('Zaman aşımı'))) {
+          results.push({
+            passed: false,
+            expected: testCase.expectedOutput,
+            actual: '⏰ Zaman aşımı! Program 5 saniyeden uzun sürdü ve iptal edildi.',
+            description: testCase.description
+          });
+          continue;
+        }
         
         // Boşlukları ve yeni satırları normalize et
         const normalizeText = (text: string) => {

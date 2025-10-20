@@ -122,6 +122,16 @@ app.post('/api/compile', async (req, res) => {
         cleanup();
         
         if (runError) {
+          // Timeout kontrolü
+          if (runError.code === 'TIMEOUT' || runError.signal === 'SIGTERM') {
+            return res.json({
+              success: false,
+              output: '',
+              errors: ['⏰ Zaman aşımı! Program 5 saniyeden uzun sürdü ve iptal edildi. Bu genellikle cin, scanf gibi kullanıcı girişi bekleyen kodlardan kaynaklanır.'],
+              executionTime: 5000
+            });
+          }
+          
           return res.json({
             success: false,
             output: '',
@@ -215,6 +225,25 @@ app.post('/api/test', async (req, res) => {
               if (fs.existsSync(exePath)) fs.unlinkSync(exePath);
             } catch (cleanupError) {
               console.warn('Temizlik hatası:', cleanupError);
+            }
+
+            // Timeout kontrolü
+            if (runError && (runError.code === 'TIMEOUT' || runError.signal === 'SIGTERM')) {
+              results.push({
+                passed: false,
+                expected: testCase.expectedOutput,
+                actual: '⏰ Zaman aşımı! Program 5 saniyeden uzun sürdü ve iptal edildi.',
+                description: testCase.description
+              });
+
+              if (results.length === testCases.length) {
+                res.json({
+                  passed,
+                  total: testCases.length,
+                  results
+                });
+              }
+              return;
             }
 
             // Boşlukları ve yeni satırları normalize et

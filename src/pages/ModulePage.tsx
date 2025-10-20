@@ -199,7 +199,13 @@ const ModulePage: React.FC = () => {
       if (result.success) {
         setOutput(`✅ Kod başarıyla çalıştırıldı!\n\nÇıktı:\n${result.output}\n\nÇalışma süresi: ${result.executionTime}ms`);
       } else {
-        setOutput(`❌ Derleme hatası:\n\n${result.errors.join('\n')}`);
+        // Timeout uyarısını özel olarak işle
+        const isTimeout = result.errors.some(error => error.includes('Zaman aşımı'));
+        if (isTimeout) {
+          setOutput(`⏰ ZAMAN AŞIMI UYARISI!\n\n${result.errors.join('\n')}\n\n💡 Bu durum genellikle şu nedenlerden kaynaklanır:\n• cin, scanf gibi kullanıcı girişi bekleyen kodlar\n• Sonsuz döngüler\n• Çok uzun hesaplamalar\n\n🔧 Çözüm önerileri:\n• Kullanıcı girişi gerektiren kodları kaldırın\n• Döngülerinizin sonlanma koşullarını kontrol edin\n• Hesaplama süresini azaltın`);
+        } else {
+          setOutput(`❌ Derleme hatası:\n\n${result.errors.join('\n')}`);
+        }
       }
     } catch (error) {
       setOutput(`❌ Hata: ${error}`);
@@ -225,8 +231,14 @@ const ModulePage: React.FC = () => {
         const status = result.passed ? '✅' : '❌';
         outputText += `${status} Test ${index + 1}: ${result.description}\n`;
         if (!result.passed) {
-          outputText += `   Beklenen: ${result.expected}\n`;
-          outputText += `   Gerçek: ${result.actual}\n`;
+          // Timeout uyarısını özel olarak işle
+          if (result.actual.includes('Zaman aşımı')) {
+            outputText += `   ⏰ ZAMAN AŞIMI!\n`;
+            outputText += `   💡 Bu test cin, scanf gibi kullanıcı girişi bekleyen kodlardan dolayı zaman aşımına uğradı.\n`;
+          } else {
+            outputText += `   Beklenen: ${result.expected}\n`;
+            outputText += `   Gerçek: ${result.actual}\n`;
+          }
         }
         outputText += '\n';
       });
