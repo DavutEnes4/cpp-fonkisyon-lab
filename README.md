@@ -1,6 +1,15 @@
 # 🚀 Uzay Gemisi Kod Lab
 
-C++ öğrenme platformu - Öğrenciler için interaktif kod laboratuvarı.
+> **Akıllı C++ Öğrenme Platformu** - Smart C++ Learning Platform
+
+C++ öğrenme platformu - Eğitim kurumları ve okullar için tasarlanmış interaktif kod laboratuvarı. Bu proje, modern web teknolojileri kullanılarak geliştirilmiş eğitim aracıdır.
+
+## 🧠 Akıllı Özellikler
+
+- **Kod Analizi** - Otomatik kod analizi ve hata tespiti
+- **Zaman Aşımı Koruması** - cin/scanf gibi kullanıcı girişi tespiti
+- **Gerçek Zamanlı Derleme** - Anlık kod derleme ve çalıştırma
+- **Akıllı Simülasyon** - Backend bağlantısı olmadığında simülasyon
 
 ## 🎯 Özellikler
 
@@ -8,7 +17,8 @@ C++ öğrenme platformu - Öğrenciler için interaktif kod laboratuvarı.
 - **6 Modül** - Başlangıç seviyesi C++ konuları
 - **Test Sistemi** - Otomatik kod doğrulama
 - **Cookie İlerleme** - Her cihazda ayrı ilerleme takibi
-- **Ağ Erişimi** - Tüm cihazlardan erişim
+- **Ağ Üzerinden Erişim** - Tüm cihazlardan erişilebilir
+- **Zaman Aşımı Koruması** - Kullanıcı girişi gerektiren kodlar için güvenlik
 
 ## 🚀 Hızlı Başlatma
 
@@ -37,14 +47,16 @@ npm start
 
 ## 🔧 Teknik Detaylar
 
-- **Frontend:** React + TypeScript
-- **Backend:** Node.js + Express
+- **Ön Yüz:** React + TypeScript + Monaco Editor
+- **Arka Uç:** Node.js + Express + g++ Derleyici
+- **Kod Analizi:** Özel pattern matching ve simülasyon
 - **Derleyici:** g++ (C++17)
-- **Port:** Frontend 3000, Backend 3001
+- **Port:** Ön Yüz 3000, Arka Uç 3001
+- **Lisans:** MIT Lisansı
 
-## 🌐 Ağ Erişimi
+## 🌐 Erişim
 
-Sunucu herkese açık olarak çalışır. Aynı ağdaki tüm cihazlar erişebilir.
+Program ağ üzerinden erişilebilir. Eğitim kurumları ve okullar için tasarlanmıştır.
 
 ## 📝 Kullanım
 
@@ -60,3 +72,32 @@ Sunucu herkese açık olarak çalışır. Aynı ağdaki tüm cihazlar erişebili
 - Her modül farklı C++ konusunu öğretir
 - Test başarısında modül tamamlanır
 - İlerlemeniz cookie'de saklanır
+- Akıllı hata tespiti ve çözüm önerileri
+
+## 🧠 Akıllı Özellikler
+
+Bu proje modern web teknolojileri ve akıllı algoritmalar kullanılarak geliştirilmiştir:
+
+- **Kod Analizi:** Pattern matching ile kod kalitesi kontrolü
+- **Akıllı Tespit:** cin/scanf gibi kullanıcı girişi tespiti
+- **Eğitim Dostu:** Öğrenci dostu hata mesajları
+- **Uyarlanabilir:** Farklı öğrenci seviyelerine uygun içerik
+
+## 📄 Lisans
+
+Bu proje MIT lisansı altında lisanslanmıştır. Detaylar için [LICENSE](LICENSE) dosyasına bakın.
+
+## 👨‍💻 Geliştirici
+
+Bu proje, modern web teknolojileri kullanılarak eğitim amaçlı geliştirilmiştir.
+
+## 🚀 Gelecek Özellikler
+
+- [ ] Kullanıcı oturum açma sistemi
+- [ ] Gelişmiş ilerleme takibi
+- [ ] Öğretmen paneli
+- [ ] Öğrenci performans analizi
+- [ ] Daha fazla programlama dili desteği
+- [ ] Yapay zeka destekli kod analizi
+- [ ] Çoklu dil desteği
+- [ ] Mobil uygulama versiyonu

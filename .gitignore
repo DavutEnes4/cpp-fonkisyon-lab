@@ -137,3 +137,36 @@ pnpm-lock.yaml
 
 # Local development
 .local
+
+# AI/ML specific
+*.model
+*.pkl
+*.h5
+*.pb
+
+# IDE specific
+.vscode/settings.json
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionaries
+.idea/shelf
+
+# OS specific
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Logs and databases
+*.sqlite
+*.sqlite3
+*.db
+
+# Runtime files
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage reports
+coverage/
+.nyc_output/
