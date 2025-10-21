@@ -13,8 +13,15 @@ export class RealCppCompiler {
     return RealCppCompiler.instance;
   }
 
-  // Backend URL'ini dinamik olarak belirle (domain ve port desteği)
+  // Backend URL'ini dinamik olarak belirle (environment variable desteği)
   private getBackendUrl(): string {
+    // Environment variable'dan backend URL'ini al
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
+    if (backendUrl) {
+      return backendUrl;
+    }
+    
+    // Fallback: Dinamik URL oluştur
     const hostname = window.location.hostname;
     const protocol = window.location.protocol;
     const port = window.location.port;

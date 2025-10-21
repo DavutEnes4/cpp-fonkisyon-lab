@@ -25,14 +25,22 @@ C++ öğrenme platformu - Eğitim kurumları ve okullar için tasarlanmış inte
 ### 1. Bağımlılıkları Yükleyin
 ```bash
 npm install
+cd backend
+npm install
 ```
 
-### 2. Sunucuyu Başlatın
+### 2. Environment Variables Ayarlayın (İsteğe Bağlı)
+Port değiştirmek istiyorsanız `.env.example` dosyasını `.env` olarak kopyalayın:
+```bash
+cp .env.example .env
+```
+
+### 3. Sunucuyu Başlatın
 ```bash
 npm start
 ```
 
-### 3. Erişim
+### 4. Erişim
 - **Yerel:** http://localhost:3000
 - **Ağ:** http://[IP_ADRESI]:3000
 

@@ -4,9 +4,11 @@ const cors = require('cors');
 const { exec } = require('child_process');
 const fs = require('fs');
 const path = require('path');
+// Ana dizindeki .env dosyasını kullan
+require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
 
 const app = express();
-const PORT = 3001;
+const PORT = process.env.BACKEND_PORT || 3001;
 
 // Middleware - Domain desteği ile CORS ayarları
 const allowedOrigins = [
